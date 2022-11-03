@@ -1,7 +1,7 @@
 1 + 5
 2 * 3
 4 / 6
-# lo que sea
+# esto es un comentario
 PROGRAMA
 si = 4
 IMPRIME 5
