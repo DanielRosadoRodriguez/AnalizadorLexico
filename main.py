@@ -24,13 +24,17 @@ for line in tokens:
     # recorremos cada elemento en el arreglo
     for element in line:
         # clasificamos el elemento
-        if element in operadores:
-            d_type = "operador"
-        elif element in asignacion:
-            d_type = "asignacion"
-        elif element in reservadas:
-            d_type = "reservada"
-        else:
-            d_type = "identificador"
+        try:
+            element = int(element)
+            d_type = "constante"
+        except ValueError:
+            if element in operadores:
+                d_type = "operador"
+            elif element in asignacion:
+                d_type = "asignacion"
+            elif element in reservadas:
+                d_type = "reservada"
+            else:
+                d_type = "identificador"
 
         print(f"{d_type}: {element}")
