@@ -23,5 +23,5 @@ for line in tokens:
         elif element in reservadas:
             d_type = "reservada"
         else:
-            d_type = "other"
+            d_type = "identificador"
         print(f"{d_type}: {element}")
