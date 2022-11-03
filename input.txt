@@ -6,3 +6,6 @@ PROGRAMA
 si = 4
 IMPRIME 5
 LEE 10
+var1 = 3
+var 4 = 5
+var1 * 2
