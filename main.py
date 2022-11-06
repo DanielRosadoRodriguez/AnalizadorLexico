@@ -38,3 +38,5 @@ for line in tokens:
                 d_type = "identificador"
 
         print(f"{d_type}: {element}")
+        with open("output.txt", "a") as out:
+            out.write(f"{d_type}\n")
