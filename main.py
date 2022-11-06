@@ -26,17 +26,16 @@ for line in tokens:
         # clasificamos el elemento
         try:
             element = int(element)
-            d_type = "constante"
+            d_type = "[valorn]"
         except ValueError:
             if element in operadores:
-                d_type = "operador"
+                d_type = f"{element}"
             elif element in asignacion:
-                d_type = "asignacion"
+                d_type = "="
             elif element in reservadas:
-                d_type = "reservada"
+                d_type = f"{element}"
             else:
-                d_type = "identificador"
+                d_type = "[id]"
 
-        print(f"{d_type}: {element}")
-        with open("output.txt", "a") as out:
+        with open("prueba.lex", "a") as out:
             out.write(f"{d_type}\n")
