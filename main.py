@@ -39,3 +39,4 @@ for line in tokens:
 
         with open("prueba.lex", "a") as out:
             out.write(f"{d_type}\n")
+out.close()
