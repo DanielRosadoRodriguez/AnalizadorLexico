@@ -35,7 +35,11 @@ for line in tokens:
             elif element in reservadas:
                 d_type = f"{element}"
             else:
-                d_type = "[id]"
+                try:
+                    element = int(element, 16)
+                    d_type = "[HEX]"
+                except ValueError:
+                    d_type = "[id]"
 
         with open("prueba.lex", "a") as out:
             out.write(f"{d_type}\n")
