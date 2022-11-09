@@ -1,4 +1,5 @@
-def print_error_message(line, line_number, error_index, hint):
+def print_error_message(line, line_number, error_index, hint=""):
+    """funcion que imprime un mensaje de error"""
 
     error_line_message = f""
     line_str = f""
@@ -19,5 +20,5 @@ def print_error_message(line, line_number, error_index, hint):
     print(f"          {line_number} | {line_str}")
     print(f"          {line_number+1} | {error_line_message}")
 
-    if hint is not None:
+    if hint != "":
         print(f"              {hint}")
