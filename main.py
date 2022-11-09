@@ -1,20 +1,13 @@
+from data_access_function import read_text, write_file
+
 # declaramos los elementos del lenguaje
 reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
 operadores = ["+", "-", "*", "/"]
 asignacion = ["="]
 comentario = ["#"]
 
-# inicializamos una lista que contendra los elementos del archivo de texto
-tokens = []
-
-# leemos el documento con el input
-with open("input.txt", "r") as file:
-    # recorremos cada linea del archivo de texto
-    for line in file:
-        # separamos cada linea en sus elementos y las agregamos a la lista de tokens
-        tokens.append(line.split())
-# una vez terminado de guardar los elementos del archivo, cerramos el archivo de texto
-file.close()
+elements_file2 = []
+tokens = read_text()
 
 # recorremos el arreglo generado de tokens
 for line in tokens:
@@ -23,6 +16,7 @@ for line in tokens:
         continue
     # recorremos cada elemento en el arreglo
     for element in line:
+
         # clasificamos el elemento
         try:
             element = int(element)
@@ -40,7 +34,3 @@ for line in tokens:
                     d_type = "[HEX]"
                 except ValueError:
                     d_type = "[id]"
-
-        with open("prueba.lex", "a") as out:
-            out.write(f"{d_type}\n")
-out.close()
