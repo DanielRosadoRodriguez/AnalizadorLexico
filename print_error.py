@@ -1,5 +1,7 @@
 def print_error_message(line, line_number, error_index, hint=""):
-    """funcion que imprime un mensaje de error"""
+    """funcion que imprime un mensaje de error
+        recibe la linea como una lista de strings
+    """
 
     error_line_message = f""
     line_str = f""
