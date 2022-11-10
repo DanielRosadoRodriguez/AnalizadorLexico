@@ -13,7 +13,6 @@ file2_elements = []
 
 cont_ids = 0
 cont_italfanum = 0
-cont_valrn = 0
 
 for line_number, line in enumerate(tokens):
     if line[0] in comentario:
@@ -31,6 +30,22 @@ for line_number, line in enumerate(tokens):
             else:
                 hint_message = 'Es posible que te haya hecho falta cerrar comillas ["]'
                 print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
-
-
-
+        elif element.isnumeric():
+            d_type = "[valorn]"
+            nombre = f"{element}"
+            value = f"{element}"
+        elif element[0].isnumeric() and not element.isnumeric():
+            hint_message = 'valor no reconocido'
+            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+        elif not element.isalnum():
+            hint_message = 'caracter no reconocido'
+            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+        elif element.isalpha():
+            if len(element) <= 16:
+                cont_ids += 1
+                d_type = "[ids]"
+                nombre = f"{element}"
+                cont = f"{cont_ids}"
+            else:
+                hint_message = 'el elemento excede el número de caracteres permitidos'
+                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
