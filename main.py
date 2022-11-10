@@ -14,6 +14,9 @@ file2_elements = []
 cont_ids = 0
 cont_italfanum = 0
 
+theres_an_error = False
+hint_message = ""
+
 for line_number, line in enumerate(tokens):
     if line[0] in comentario:
         # si un elemento es un comentario, lo ignoramos
@@ -28,8 +31,8 @@ for line_number, line in enumerate(tokens):
                 cont = f"txt{cont_italfanum}"
                 nombre = element
             else:
+                theres_an_error = True
                 hint_message = 'Es posible que te haya hecho falta cerrar comillas ["]'
-                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
         elif element.isnumeric():
             d_type = "[valorn]"
             nombre = f"{element}"
@@ -41,16 +44,14 @@ for line_number, line in enumerate(tokens):
                 nombre = f"{element}"
                 value = f"{deicmal_value}"
             except ValueError:
+                theres_an_error = True
                 hint_message = "valor hexadecimal inválido"
-                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
-
-
         elif element[0].isnumeric() and not element.isnumeric():
+            theres_an_error = True
             hint_message = 'valor no reconocido, inicia por un numero pero no es un valor numerico'
-            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
         elif not element.isalnum():
+            theres_an_error = True
             hint_message = 'caracter no reconocido'
-            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
         elif element.isalpha():
             if len(element) <= 16:
                 cont_ids += 1
@@ -58,5 +59,10 @@ for line_number, line in enumerate(tokens):
                 nombre = f"{element}"
                 cont = f"{cont_ids}"
             else:
+                theres_an_error = True
                 hint_message = 'el elemento excede el número de caracteres permitidos'
-                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+        if theres_an_error:
+            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+            break
+    if theres_an_error:
+        break
