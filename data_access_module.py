@@ -16,9 +16,17 @@ def read_text():
     return tokens
 
 
-def write_file(text):
+def print_1er_archivo(elements):
     """function that writes to a file"""
     with open("prueba.lex", "a") as out:
-        for line in text:
-            write_file(f"{line}\n")
+        for element in elements:
+            out.write(f"{element}\n")
     out.close()
+
+
+def print_2ndo_archivo(elementos):
+    """
+    funcion que recibe los elementos a imprimir en forma de diccionario
+    Imprime los elementos en un nuevo archivo de texto
+    """
+
