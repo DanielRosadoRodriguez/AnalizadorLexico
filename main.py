@@ -1,4 +1,4 @@
-from data_access_module import read_text
+from data_access_module import read_text, print_1er_archivo, print_2ndo_archivo
 from print_error import print_error_message
 # declaramos los elementos del lenguaje
 reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
@@ -7,7 +7,6 @@ asignacion = ["="]
 comentario = ["#"]
 
 tokens = read_text()
-print(tokens)
 file1_elements = []
 file2_elements = []
 
@@ -22,8 +21,9 @@ for line_number, line in enumerate(tokens):
         # si un elemento es un comentario, lo ignoramos
         continue
     for element_number, element in enumerate(line):
-        if element in reservadas or operadores or asignacion:
+        if element in reservadas or element in operadores or element in asignacion:
             file1_elements.append(element)
+            continue
         elif element[0] == '"':
             if element[-1] == '"':
                 cont_italfanum += 1
@@ -37,7 +37,7 @@ for line_number, line in enumerate(tokens):
             d_type = "[valorn]"
             nombre = f"{element}"
             value = f"{element}"
-        elif element[:1] == "0x":
+        elif element[:2] == "0x":
             try:
                 deicmal_value = int(element[2:], 16)
                 d_type = "[valorn]"
@@ -61,31 +61,33 @@ for line_number, line in enumerate(tokens):
             else:
                 theres_an_error = True
                 hint_message = 'el elemento excede el número de caracteres permitidos'
-        if theres_an_error:
-            print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
-            break
-        else:
-            try:
-                file1_elements.append(d_type)
-                if d_type == "[valorn]":
-                    new_element = {
-                        "d_type": d_type,
-                        "values": {
-                            "nombre": nombre,
-                            "value": value
-                        }
-                    }
-                else:
-                    new_element = {
-                        "d_type": d_type,
-                        "values": {
-                            "nombre": nombre,
-                            "cont": cont
-                        }
-                    }
-                file2_elements.append(new_element)
-            except NameError:
-                print("the d_type parameter is none")
+                break
+        elif not theres_an_error:
+            file1_elements.append(d_type)
     if theres_an_error:
         break
+    try:
+        if d_type == "[valorn]":
+            new_element = {
+                "d_type": d_type,
+                "values": {
+                    "nombre": nombre,
+                    "value": value
+                }
+            }
+        else:
+            new_element = {
+                "d_type": d_type,
+                "values": {
+                    "nombre": nombre,
+                    "cont": cont
+                }
+            }
+        file2_elements.append(new_element)
+    except NameError:
+        print("the d_type parameter is none")
 
+if theres_an_error:
+    print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+else:
+    print_1er_archivo(file1_elements)
