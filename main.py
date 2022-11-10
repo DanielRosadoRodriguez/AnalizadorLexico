@@ -34,8 +34,19 @@ for line_number, line in enumerate(tokens):
             d_type = "[valorn]"
             nombre = f"{element}"
             value = f"{element}"
+        elif element[:1] == "0x":
+            try:
+                deicmal_value = int(element[2:], 16)
+                d_type = "[valorn]"
+                nombre = f"{element}"
+                value = f"{deicmal_value}"
+            except ValueError:
+                hint_message = "valor hexadecimal inválido"
+                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+
+
         elif element[0].isnumeric() and not element.isnumeric():
-            hint_message = 'valor no reconocido'
+            hint_message = 'valor no reconocido, inicia por un numero pero no es un valor numerico'
             print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
         elif not element.isalnum():
             hint_message = 'caracter no reconocido'
