@@ -1,4 +1,4 @@
-from data_access_function import read_text, write_file
+from data_access_module import read_text, write_file
 
 # declaramos los elementos del lenguaje
 reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
