@@ -64,5 +64,28 @@ for line_number, line in enumerate(tokens):
         if theres_an_error:
             print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
             break
+        else:
+            try:
+                file1_elements.append(d_type)
+                if d_type == "[valorn]":
+                    new_element = {
+                        "d_type": d_type,
+                        "values": {
+                            "nombre": nombre,
+                            "value": value
+                        }
+                    }
+                else:
+                    new_element = {
+                        "d_type": d_type,
+                        "values": {
+                            "nombre": nombre,
+                            "cont": cont
+                        }
+                    }
+                file2_elements.append(new_element)
+            except NameError:
+                print("the d_type parameter is none")
     if theres_an_error:
         break
+
