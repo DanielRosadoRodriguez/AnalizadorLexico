@@ -1,36 +1,36 @@
-from data_access_module import read_text, write_file
-
+from data_access_module import read_text
+from print_error import print_error_message
 # declaramos los elementos del lenguaje
 reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
 operadores = ["+", "-", "*", "/"]
 asignacion = ["="]
 comentario = ["#"]
 
-elements_file2 = []
 tokens = read_text()
+print(tokens)
+file1_elements = []
+file2_elements = []
 
-# recorremos el arreglo generado de tokens
-for line in tokens:
-    # si la linea inicia por #, es un comentario, pasamos a la siguiente linea
+cont_ids = 0
+cont_italfanum = 0
+cont_valrn = 0
+
+for line_number, line in enumerate(tokens):
     if line[0] in comentario:
+        # si un elemento es un comentario, lo ignoramos
         continue
-    # recorremos cada elemento en el arreglo
-    for element in line:
-
-        # clasificamos el elemento
-        try:
-            element = int(element)
-            d_type = "[valorn]"
-        except ValueError:
-            if element in operadores:
-                d_type = f"{element}"
-            elif element in asignacion:
-                d_type = "="
-            elif element in reservadas:
-                d_type = f"{element}"
+    for element_number, element in enumerate(line):
+        if element in reservadas or operadores or asignacion:
+            file1_elements.append(element)
+        elif element[0] == '"':
+            if element[-1] == '"':
+                cont_italfanum += 1
+                d_type = "[litalfnum]"
+                cont = f"txt{cont_italfanum}"
+                nombre = element
             else:
-                try:
-                    element = int(element, 16)
-                    d_type = "[HEX]"
-                except ValueError:
-                    d_type = "[id]"
+                hint_message = 'Es posible que te haya hecho falta cerrar comillas ["]'
+                print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
+
+
+
