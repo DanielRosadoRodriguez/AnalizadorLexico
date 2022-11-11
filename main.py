@@ -2,7 +2,7 @@
 from data_access_module import read_text, print_archivo
 from elementos_del_lenguaje import comentario, elementos_lenguaje
 import comparisons as c
-from process_data import to_dictionary
+from process_data import to_dictionary, parse_dictionary
 from print_error import print_error_message
 
 tokens = read_text(path="input.txt")
@@ -25,7 +25,7 @@ for line_number, line in enumerate(tokens):
                 cont_textos += 1
                 d_type = "TXT"
                 nombre = element
-                valor = cont_textos
+                valor = f"txt{cont_textos}"
                 lista_texto_1.append("[litalfnum]")
             elif element.isnumeric():
                 d_type = "VAL"
@@ -41,15 +41,14 @@ for line_number, line in enumerate(tokens):
                 cont_variables += 1
                 d_type = "IDS"
                 nombre = element
-                valor = cont_variables
+                valor = f"id{cont_variables}"
                 lista_texto_1.append("[id]")
 
-
-            print(element)
             element_info = to_dictionary(d_type=d_type, name=nombre, value=valor)
-            print(element_info)
+            lista_texto_2.append(element_info)
 
 if not there_is_an_error:
     print_archivo(elements=lista_texto_1, path="texto_1.txt")
 if not there_is_an_error:
+    lista_texto_2 = parse_dictionary(lista_texto_2)
     print_archivo(elements=lista_texto_2, path="texto_2.txt")
