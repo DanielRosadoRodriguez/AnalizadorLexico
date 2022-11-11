@@ -45,7 +45,7 @@ for line_number, line in enumerate(tokens):
                 lista_texto_1.append("[id]")
             else:
                 there_is_an_error = True
-                print(f"Danger! Error en la linea {line}")
+                print(f"Danger! Error en la linea {line_number}")
                 break
             if not there_is_an_error:
                 element_info = to_dictionary(d_type=d_type, name=nombre, value=valor)
