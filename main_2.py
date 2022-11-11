@@ -5,8 +5,11 @@ import comparisons as c
 from print_error import print_error_message
 
 tokens = read_text(path="input.txt")
+
 cont_textos = 0
 cont_variables = 0
+
+there_is_an_error = False
 
 for line_number, line in enumerate(tokens):
     if line[0] in comentario:
