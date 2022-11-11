@@ -32,7 +32,7 @@ for line_number, line in enumerate(tokens):
                 nombre = element
                 valor = int(element)
                 lista_texto_1.append("[valorn]")
-            elif c.is_hexadecimal(element) and element[:2]:
+            elif c.is_hexadecimal(element) and element[:2] == "0x":
                 d_type = "VAL"
                 nombre = element
                 valor = int(element, 16)
