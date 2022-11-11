@@ -32,7 +32,7 @@ for line_number, line in enumerate(tokens):
                 nombre = element
                 valor = int(element)
                 lista_texto_1.append("[valorn]")
-            elif c.is_hexadecimal(element):
+            elif c.is_hexadecimal(element) and element[:2]:
                 d_type = "VAL"
                 nombre = element
                 valor = int(element, 16)
@@ -45,7 +45,7 @@ for line_number, line in enumerate(tokens):
                 lista_texto_1.append("[id]")
             else:
                 there_is_an_error = True
-                print(f"Danger! Error en la linea {line_number}. Elemento que genera el error: {element}")
+                print(f"Danger! Error en la linea {line_number+1}. Elemento que genera el error: {element}")
                 break
             if not there_is_an_error:
                 element_info = to_dictionary(d_type=d_type, name=nombre, value=valor)
