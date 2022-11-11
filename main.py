@@ -5,7 +5,7 @@ import comparisons as c
 from process_data import to_dictionary, parse_dictionary
 from print_error import print_error_message
 
-tokens = read_text(path="input.txt")
+tokens = read_text(path="prueba.mio")
 
 cont_textos = 0
 cont_variables = 0
@@ -54,7 +54,7 @@ for line_number, line in enumerate(tokens):
         break
 
 if not there_is_an_error:
-    print_archivo(elements=lista_texto_1, path="texto_1.txt")
+    print_archivo(elements=lista_texto_1, path="prueba.lex")
 if not there_is_an_error:
     lista_texto_2 = parse_dictionary(lista_texto_2)
-    print_archivo(elements=lista_texto_2, path="texto_2.txt")
+    print_archivo(elements=lista_texto_2, path="factorial.sim")

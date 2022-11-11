@@ -1,4 +1,4 @@
-def read_text(path="input.txt"):
+def read_text(path="prueba.mio"):
 
     tokens = []
     with open(path, "r") as file:
