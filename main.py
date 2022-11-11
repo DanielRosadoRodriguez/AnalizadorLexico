@@ -1,90 +1,55 @@
+# test for the string classification and string error
 from data_access_module import read_text, print_archivo
+from elementos_del_lenguaje import comentario, elementos_lenguaje
+import comparisons as c
 from print_error import print_error_message
-from elementos_del_lenguaje import reservadas, operadores, asignacion, comentario
-# declaramos los elementos del lenguaje
 
-tokens = read_text()
-file1_elements = []
-file2_elements = []
+tokens = read_text(path="input.txt")
 
-cont_ids = 0
-cont_italfanum = 0
-
-theres_an_error = False
-hint_message = ""
+cont_textos = 0
+cont_variables = 0
+lista_texto_1 = []
+there_is_an_error = False
 
 for line_number, line in enumerate(tokens):
     if line[0] in comentario:
-        # si un elemento es un comentario, lo ignoramos
         continue
-    for element_number, element in enumerate(line):
-        if element in reservadas or element in operadores or element in asignacion:
-            file1_elements.append(element)
-            continue
-        elif element[0] == '"':
-            if element[-1] == '"':
-                cont_italfanum += 1
-                d_type = "[litalfnum]"
-                cont = f"txt{cont_italfanum}"
+    else:
+        for element_number, element in enumerate(line):
+            if c.is_reservada(element=element, reservadas=elementos_lenguaje):
+                print(element)
+                lista_texto_1.append(element)
+                continue
+            elif c.is_text(first_char=element[0], last_char=line[-1][-1]):
+                print("[litalfnum]")
+                cont_textos += 1
+                d_type = "TXT"
                 nombre = element
-            else:
-                theres_an_error = True
-                hint_message = 'Es posible que te haya hecho falta cerrar comillas ["]'
-        elif element.isnumeric():
-            d_type = "[valorn]"
-            nombre = f"{element}"
-            value = f"{element}"
-        elif element[:2] == "0x":
-            try:
-                deicmal_value = int(element[2:], 16)
-                d_type = "[valorn]"
-                nombre = f"{element}"
-                value = f"{deicmal_value}"
-            except ValueError:
-                theres_an_error = True
-                hint_message = "valor hexadecimal inválido"
-        elif element[0].isnumeric() and not element.isnumeric():
-            theres_an_error = True
-            hint_message = 'valor no reconocido, inicia por un numero pero no es un valor numerico'
-        elif not element.isalnum():
-            theres_an_error = True
-            hint_message = 'caracter no reconocido'
-        elif element.isalpha():
-            if len(element) <= 16:
-                cont_ids += 1
-                d_type = "[ids]"
-                nombre = f"{element}"
-                cont = f"{cont_ids}"
-            else:
-                theres_an_error = True
-                hint_message = 'el elemento excede el número de caracteres permitidos'
-                break
-        elif not theres_an_error:
-            file1_elements.append(d_type)
-    if theres_an_error:
-        break
-    try:
-        if d_type == "[valorn]":
-            new_element = {
-                "d_type": d_type,
-                "values": {
-                    "nombre": nombre,
-                    "value": value
-                }
-            }
-        else:
-            new_element = {
-                "d_type": d_type,
-                "values": {
-                    "nombre": nombre,
-                    "cont": cont
-                }
-            }
-        file2_elements.append(new_element)
-    except NameError:
-        print("the d_type parameter is none")
+                cont = cont_textos
+                lista_texto_1.append("[litalfnum]")
+                continue
+            elif element.isnumeric():
+                print("[valorn]")
+                d_type = "VAL"
+                nombre = element
+                valor = int(element)
+                lista_texto_1.append("[valorn]")
+                continue
+            elif c.is_hexadecimal(element):
+                print("[valorn]")
+                d_type = "VAL"
+                nombre = element
+                valor = int(element, 16)
+                lista_texto_1.append("[valorn]")
+                continue
+            elif c.is_id(element):
+                cont_variables += 1
+                print("[id]")
+                d_type = "IDS"
+                nombre = element
+                cont = cont_variables
+                lista_texto_1.append("[id]")
+                continue
 
-if theres_an_error:
-    print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
-else:
-    print_archivo(file1_elements)
+if not there_is_an_error:
+    print_archivo(elements=lista_texto_1, path="texto_1.txt")
