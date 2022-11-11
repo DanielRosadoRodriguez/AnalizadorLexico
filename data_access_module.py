@@ -8,7 +8,7 @@ def read_text(path="input.txt"):
     return tokens
 
 
-def print_archivo(elements, path="input.txt"):
+def print_archivo(elements, path="salida.txt"):
     with open(path, "a") as out:
         for element in elements:
             out.write(f"{element}\n")
