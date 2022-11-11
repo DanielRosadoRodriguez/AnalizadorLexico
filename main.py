@@ -43,9 +43,11 @@ for line_number, line in enumerate(tokens):
                 nombre = element
                 valor = f"id{cont_variables}"
                 lista_texto_1.append("[id]")
-
-            element_info = to_dictionary(d_type=d_type, name=nombre, value=valor)
-            lista_texto_2.append(element_info)
+            else:
+                there_is_an_error = True
+            if not there_is_an_error:
+                element_info = to_dictionary(d_type=d_type, name=nombre, value=valor)
+                lista_texto_2.append(element_info)
 
 if not there_is_an_error:
     print_archivo(elements=lista_texto_1, path="texto_1.txt")
