@@ -1,4 +1,4 @@
-from data_access_module import read_text, print_1er_archivo, print_2ndo_archivo
+from data_access_module import read_text, print_archivo, print_2ndo_archivo
 from print_error import print_error_message
 # declaramos los elementos del lenguaje
 reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
