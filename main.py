@@ -1,10 +1,7 @@
-from data_access_module import read_text, print_1er_archivo, print_2ndo_archivo
+from data_access_module import read_text, print_archivo
 from print_error import print_error_message
+from elementos_del_lenguaje import reservadas, operadores, asignacion, comentario
 # declaramos los elementos del lenguaje
-reservadas = ["PROGRAMA", "FINPROG", "IMPRIME", "LEE"]
-operadores = ["+", "-", "*", "/"]
-asignacion = ["="]
-comentario = ["#"]
 
 tokens = read_text()
 file1_elements = []
@@ -90,4 +87,4 @@ for line_number, line in enumerate(tokens):
 if theres_an_error:
     print_error_message(error_index=element_number, line_number=line_number, line=line, hint=hint_message)
 else:
-    print_1er_archivo(file1_elements)
+    print_archivo(file1_elements)
